@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.koma.weather.data.source.local
+package com.koma.weather.di
 
-class WeatherDatabase {
+interface AppComponent {
 }

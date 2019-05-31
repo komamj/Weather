@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package com.koma.weather.splash
+package com.koma.weather.data.entities
 
-import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.koma.weather.R
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class SplashActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-    }
+@Entity(tableName = "city")
+data class City(@PrimaryKey val id: Long, val name: String) {
 }

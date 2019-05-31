@@ -16,5 +16,10 @@
 
 package com.koma.weather.data.source.remote
 
+import androidx.lifecycle.LiveData
+import retrofit2.http.GET
+
 interface WebService {
+    @GET()
+    fun getWeather(): LiveData<Any>
 }

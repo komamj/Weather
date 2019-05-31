@@ -19,6 +19,11 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0.00"
+
+        buildConfigField "String", "API_KEY", API_KEY
+
+        manifestPlaceholders = ["AMAP_KEY": "${AMAP_KEY}"]
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,10 +35,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    dataBinding {
-        enabled = true
     }
 
     compileOptions {
@@ -73,13 +74,24 @@ dependencies {
     implementation deps.room.runtime
     kapt deps.room.compiler
 
+    implementation deps.rx.kotlin
+    implementation deps.rx.android
+
     implementation deps.network.retrofit
     implementation deps.network.gson
     implementation deps.network.logging_interceptor
 
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+
     implementation deps.timber
 
     implementation deps.map
+
+    implementation project(':commonlibrary')
 
     debugImplementation deps.leakcanary
 
@@ -135,5 +147,11 @@ task fullCoverageReport(type: JacocoReport) {
 project.tasks.whenTaskAdded {
     if (it.name == "testReleaseUnitTest") {
         it.enabled = false
+    }
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "500" // or whatever number you want
     }
 }
