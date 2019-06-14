@@ -14,27 +14,25 @@
  * limitations under the License.
  */
 
-package com.koma.weather
+package com.koma.common.util
 
-import android.os.Bundle
-import android.view.Menu
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import android.util.Log
+import androidx.annotation.NonNull
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        init()
+class ReleaseTree : DebugTree() {
+    override fun isLoggable(tag: String?, priority: Int): Boolean {
+        return priority == Log.WARN || priority == Log.INFO || priority == Log.ERROR
+                || priority == Log.ASSERT
     }
 
-    private fun init() {
-        setSupportActionBar(bottom_app_bar)
-    }
+    override fun log(priority: Int, tag: String?, @NonNull message: String, t: Throwable?) {
+        if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+            return
+        }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
+        if (t != null) {
+            // todo upload log
+        }
     }
 }

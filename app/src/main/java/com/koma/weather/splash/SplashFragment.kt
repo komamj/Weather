@@ -19,9 +19,11 @@ package com.koma.weather.splash
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.koma.common.base.BaseFragment
-import com.koma.weather.MainActivity
 import com.koma.weather.R
+import com.koma.weather.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 class SplashFragment : BaseFragment() {
@@ -38,6 +40,17 @@ class SplashFragment : BaseFragment() {
                 showMainPage()
             }
         }
+
+        val viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
+        viewModel.time.observe(this, Observer {
+            if (it <= 0) {
+                btn_count_down.text = getString(R.string.skip)
+                showMainPage()
+            } else {
+                btn_count_down.text = getString(R.string.count_down, it)
+            }
+        })
+        viewModel.startCountDown()
     }
 
     private fun showMainPage() {

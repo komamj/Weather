@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package com.koma.weather
+package com.koma.common.base
 
-import com.koma.common.base.BaseApplication
-import leakcanary.LeakSentry
+import android.app.Application
+import com.koma.common.BuildConfig
+import com.koma.common.util.DebugTree
+import com.koma.common.util.ReleaseTree
+import timber.log.Timber
 
-class WeatherApplication : BaseApplication() {
+open class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        LeakSentry.config = LeakSentry.config.copy(watchFragmentViews = false)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        } else {
+            Timber.plant(ReleaseTree())
+        }
     }
 }

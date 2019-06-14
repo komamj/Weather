@@ -19,6 +19,7 @@
         <activity
             android:name=".splash.SplashActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +29,10 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
     </application>
 

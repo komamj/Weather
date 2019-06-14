@@ -79,6 +79,7 @@ dependencies {
 
     implementation deps.network.retrofit
     implementation deps.network.gson
+    implementation deps.network.rxjava2
     implementation deps.network.logging_interceptor
 
     implementation deps.dagger.runtime

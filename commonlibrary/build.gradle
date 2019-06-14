@@ -50,6 +50,8 @@ dependencies {
 
     implementation deps.support.app_compat
 
+    implementation deps.timber
+
     testImplementation deps.test.junit
     androidTestImplementation deps.test.runner
     androidTestImplementation deps.test.espresso_core

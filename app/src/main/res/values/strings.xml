@@ -16,7 +16,8 @@
 
 <resources>
     <string name="app_name">Weather</string>
-    <!--ic_splash-->
+    <!--splash-->
+    <string name="skip">跳过</string>
     <string name="count_down">%d秒跳过</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

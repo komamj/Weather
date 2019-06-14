@@ -21,11 +21,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class SplashViewModel : ViewModel() {
+    private val disposables = CompositeDisposable()
+
     private val _time = MutableLiveData<Long>()
 
     val time: LiveData<Long> = _time
@@ -44,9 +47,16 @@ class SplashViewModel : ViewModel() {
                 },
                     onError = {},
                     onComplete = {})
+        disposables.add(disposable)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        disposables.clear()
     }
 
     companion object {
-        const val MAX_COUNT = 3L
+        const val MAX_COUNT = 5L
     }
 }

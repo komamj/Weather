@@ -16,38 +16,89 @@
 
 package com.koma.weather.di
 
+import android.app.Application
+import androidx.room.Room
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.koma.weather.BuildConfig
+import com.koma.weather.data.source.local.CityDao
+import com.koma.weather.data.source.local.WeatherDb
+import com.koma.weather.data.source.remote.WebService
+import com.koma.weather.util.ApiKeyInterceptor
+import dagger.Module
+import dagger.Provides
+import okhttp3.Cache
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
+
+@Module
 class AppModule {
-    /*@Singleton
+    @Singleton
     @Provides
-    fun provideGithubService(): GithubService {
-        return Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .build()
-            .create(GithubService::class.java)
+    fun provideGson(): Gson {
+        return GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
     }
 
     @Singleton
     @Provides
-    fun provideDb(app: Application): GithubDb {
+    fun provideCache(application: Application): Cache {
+        val cacheSize = 10 * 1024 * 1024 // 10 MiB
+
+        return Cache(application.cacheDir, cacheSize.toLong())
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(cache: Cache): OkHttpClient {
+        val logInterceptor = HttpLoggingInterceptor()
+
+        if (BuildConfig.DEBUG) {
+            logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        } else {
+            logInterceptor.level = HttpLoggingInterceptor.Level.NONE
+        }
+
+        return OkHttpClient.Builder()
+            .addInterceptor(logInterceptor)
+            .addInterceptor(ApiKeyInterceptor())
+            .cache(cache)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWebService(): WebService {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(WebService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDb(app: Application): WeatherDb {
         return Room
-            .databaseBuilder(app, GithubDb::class.java, "github.db")
+            .databaseBuilder(app, WeatherDb::class.java, "weather.db")
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideUserDao(db: GithubDb): UserDao {
-        return db.userDao()
+    fun provideCityDao(db: WeatherDb): CityDao {
+        return db.cityDao()
     }
-
-    @Singleton
-    @Provides
-    fun provideRepoDao(db: GithubDb): RepoDao {
-        return db.repoDao()
-    }*/
 
     companion object {
         const val BASE_URL = "https://free-api.heweather.net/s6/weather/"
