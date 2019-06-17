@@ -16,12 +16,14 @@
 
 package com.koma.weather.di
 
-import com.koma.weather.data.source.WeatherRepository
-import dagger.Component
+import android.app.Application
+import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
-@Singleton
-@Component(modules = [ApplicationModule::class, AppModule::class])
-interface AppComponent {
-    fun getRepository(): WeatherRepository
+@Module
+class ApplicationModule(private val application: Application) {
+    @Singleton
+    @Provides
+    fun provideApplication() = application
 }

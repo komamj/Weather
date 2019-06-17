@@ -29,6 +29,10 @@ import java.util.concurrent.TimeUnit
 class SplashViewModel : ViewModel() {
     private val disposables = CompositeDisposable()
 
+    private val _needSkip = MutableLiveData<Boolean>()
+
+    val needSkip: LiveData<Boolean> = _needSkip
+
     private val _time = MutableLiveData<Long>()
 
     val time: LiveData<Long> = _time
@@ -42,11 +46,17 @@ class SplashViewModel : ViewModel() {
             Flowable.intervalRange(1, MAX_COUNT, 1, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onNext = {
-                    _time.value = 3 - it
-                },
-                    onError = {},
-                    onComplete = {})
+                .subscribeBy(
+                    onNext = {
+                        _time.value = MAX_COUNT - it
+                    },
+                    onError = {
+                        _needSkip.value = true
+                    },
+                    onComplete = {
+                        _needSkip.value = true
+                    }
+                )
         disposables.add(disposable)
     }
 

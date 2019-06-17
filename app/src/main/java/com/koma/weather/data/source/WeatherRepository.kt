@@ -17,7 +17,9 @@
 package com.koma.weather.data.source
 
 import com.koma.weather.data.source.remote.WebService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class WeatherRepository constructor(val webService: WebService) {
-
+@Singleton
+class WeatherRepository @Inject constructor(val webService: WebService) {
 }

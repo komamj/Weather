@@ -89,7 +89,7 @@ class AppModule {
     @Provides
     fun provideDb(app: Application): WeatherDb {
         return Room
-            .databaseBuilder(app, WeatherDb::class.java, "weather.db")
+            .databaseBuilder(app, WeatherDb::class.java, DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -101,6 +101,7 @@ class AppModule {
     }
 
     companion object {
-        const val BASE_URL = "https://free-api.heweather.net/s6/weather/"
+        private const val DB_NAME = "weather.db"
+        private const val BASE_URL = "https://free-api.heweather.net/s6/weather/"
     }
 }

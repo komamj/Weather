@@ -18,49 +18,64 @@ package com.koma.weather.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.koma.common.base.BaseFragment
-import com.koma.weather.R
+import com.koma.weather.databinding.FragmentSplashBinding
 import com.koma.weather.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_splash.*
 
-class SplashFragment : BaseFragment() {
+class SplashFragment : Fragment() {
+    private lateinit var binding: FragmentSplashBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSplashBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@SplashFragment.viewLifecycleOwner
+        }
+
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btn_count_down.setOnClickListener {
+            showMainPage()
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         init()
     }
 
     private fun init() {
-        btn_count_down.apply {
-            this.text = getString(R.string.count_down, 3)
-            this.setOnClickListener {
-                showMainPage()
-            }
-        }
-
         val viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
-        viewModel.time.observe(this, Observer {
-            if (it <= 0) {
-                btn_count_down.text = getString(R.string.skip)
+        binding.time = viewModel.time
+        viewModel.startCountDown()
+        viewModel.needSkip.observe(viewLifecycleOwner, Observer {
+            if (it) {
                 showMainPage()
-            } else {
-                btn_count_down.text = getString(R.string.count_down, it)
             }
         })
-        viewModel.startCountDown()
     }
 
     private fun showMainPage() {
-        val intent = Intent(context, MainActivity::class.java)
-        startActivity(intent)
-        activity?.run {
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            finish()
-        }
+        view?.postDelayed({
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+            activity?.run {
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                finish()
+            }
+        }, 500)
     }
-
-    override fun getLayoutId() = R.layout.fragment_splash
 }
