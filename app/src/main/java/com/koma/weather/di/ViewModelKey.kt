@@ -16,29 +16,16 @@
 
 package com.koma.weather.di
 
-import android.app.Application
-import com.koma.weather.WeatherApp
-import dagger.BindsInstance
-import dagger.Component
-import dagger.android.AndroidInjectionModule
-import javax.inject.Singleton
+import androidx.lifecycle.ViewModel
+import dagger.MapKey
+import kotlin.reflect.KClass
 
-@Singleton
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        AppModule::class,
-        ActivityBindingModule::class
-    ]
+@MustBeDocumented
+@Target(
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.PROPERTY_GETTER,
+    AnnotationTarget.PROPERTY_SETTER
 )
-interface AppComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        fun build(): AppComponent
-    }
-
-    fun inject(weatherApp: WeatherApp)
-}
+@Retention(AnnotationRetention.RUNTIME)
+@MapKey
+annotation class ViewModelKey(val value: KClass<out ViewModel>)

@@ -19,14 +19,18 @@ package com.koma.weather.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.Flowable
+import com.koma.weather.data.source.WeatherRepository
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SplashViewModel : ViewModel() {
+class SplashViewModel @Inject constructor(
+    val repository: WeatherRepository
+) : ViewModel() {
     private val disposables = CompositeDisposable()
 
     private val _needSkip = MutableLiveData<Boolean>()
@@ -39,11 +43,12 @@ class SplashViewModel : ViewModel() {
 
     init {
         _time.value = MAX_COUNT
+        _needSkip.value = false
     }
 
     fun startCountDown() {
         val disposable =
-            Flowable.intervalRange(1, MAX_COUNT, 1, 1, TimeUnit.SECONDS)
+            Observable.intervalRange(1, MAX_COUNT, 1, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

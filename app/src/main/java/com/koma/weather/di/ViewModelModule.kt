@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.weather
+
+package com.koma.weather.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.koma.weather.data.source.WeatherRepository
+import com.koma.weather.WeatherViewModelFactory
 import com.koma.weather.splash.SplashViewModel
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
 
-class ViewModelFactory constructor(
-    private val repository: WeatherRepository
-) : ViewModelProvider.NewInstanceFactory() {
+@Module
+abstract class ViewModelModule {
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashViewModel::class)
+    abstract fun bindSplashViewModel(viewModel: SplashViewModel): ViewModel
 
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        with(modelClass) {
-            when {
-                isAssignableFrom(SplashViewModel::class.java) ->
-                    SplashViewModel()
-                else ->
-                    throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
-            }
-        } as T
+    @Binds
+    abstract fun bindViewModelfactory(factory: WeatherViewModelFactory): ViewModelProvider.Factory
 }

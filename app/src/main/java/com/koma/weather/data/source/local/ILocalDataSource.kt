@@ -14,21 +14,7 @@
  * limitations under the License.
  */
 
-package com.koma.common.base
+package com.koma.weather.data.source.local
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-
-abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
-    protected lateinit var binding: T
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, getLayoutId())
-    }
-
-    abstract fun getLayoutId(): Int
+interface ILocalDataSource {
 }

@@ -18,54 +18,52 @@ package com.koma.weather.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.koma.common.base.BaseFragment
+import com.koma.weather.R
 import com.koma.weather.databinding.FragmentSplashBinding
+import com.koma.weather.di.Injectable
 import com.koma.weather.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_splash.*
+import javax.inject.Inject
 
-class SplashFragment : Fragment() {
-    private lateinit var binding: FragmentSplashBinding
+class SplashFragment : BaseFragment<FragmentSplashBinding>(), Injectable {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSplashBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = this@SplashFragment.viewLifecycleOwner
-        }
+    private lateinit var viewModel: SplashViewModel
 
-        return binding.root
-    }
+    override fun getLayoutId() = R.layout.fragment_splash
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        btn_count_down.setOnClickListener {
-            showMainPage()
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         init()
     }
 
     private fun init() {
-        val viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(SplashViewModel::class.java)
+
+        binding.btnCountDown.setOnClickListener {
+            showMainPage()
+        }
         binding.time = viewModel.time
-        viewModel.startCountDown()
-        viewModel.needSkip.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                showMainPage()
-            }
-        })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        with(viewModel) {
+            startCountDown()
+            needSkip.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    showMainPage()
+                }
+            })
+        }
     }
 
     private fun showMainPage() {

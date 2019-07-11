@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [ViewModelModule::class])
 class AppModule {
     @Singleton
     @Provides
@@ -88,8 +88,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideDb(app: Application): WeatherDb {
-        return Room
-            .databaseBuilder(app, WeatherDb::class.java, DB_NAME)
+        return Room.databaseBuilder(app, WeatherDb::class.java, DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }

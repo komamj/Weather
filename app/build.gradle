@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -59,6 +57,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation deps.kotlin.stdlib
+    /*implementation deps.kotlin.coroutines_android
+    implementation deps.kotlin.coroutines_core*/
 
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
@@ -67,6 +67,7 @@ dependencies {
 
     implementation deps.support.app_compat
     implementation deps.support.design
+    implementation deps.view_pager
     implementation deps.constraint_layout
 
     implementation deps.navigation.fragment_ktx
@@ -87,19 +88,29 @@ dependencies {
     implementation deps.network.logging_interceptor
 
     implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
     kapt deps.dagger.compiler
+    kapt deps.dagger.android_support_compiler
 
     implementation deps.timber
 
     implementation deps.map
+
+    implementation deps.lottie
 
     implementation project(':commonlibrary')
 
     debugImplementation deps.leakcanary
 
     testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    testImplementation deps.test.arch_core
+
     androidTestImplementation deps.test.runner
     androidTestImplementation deps.test.espresso_core
+    androidTestImplementation deps.test.arch_core
+    androidTestImplementation deps.test.mockito
 }
 
 task fullCoverageReport(type: JacocoReport) {

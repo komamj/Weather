@@ -14,24 +14,7 @@
  * limitations under the License.
  */
 
-package com.koma.weather
+package com.koma.weather.main
 
-import com.koma.common.base.BaseApplication
-import com.koma.weather.di.AppComponent
-import com.koma.weather.di.ApplicationModule
-import com.koma.weather.di.DaggerAppComponent
-import leakcanary.LeakSentry
-
-class WeatherApplication : BaseApplication() {
-    lateinit var appComponent: AppComponent
-
-    override fun onCreate() {
-        super.onCreate()
-
-        appComponent = DaggerAppComponent.builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
-
-        LeakSentry.config = LeakSentry.config.copy(watchFragmentViews = false)
-    }
+class WeatherFragment {
 }

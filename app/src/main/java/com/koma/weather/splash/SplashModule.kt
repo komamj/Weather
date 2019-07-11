@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package com.koma.common.base
+package com.koma.weather.splash
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
-    protected lateinit var binding: T
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, getLayoutId())
-    }
-
-    abstract fun getLayoutId(): Int
+@Module
+abstract class SplashModule {
+    @ContributesAndroidInjector
+    abstract fun contributeSplashFragment(): SplashFragment
 }

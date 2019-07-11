@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package com.koma.weather.util
+package com.koma.weather.di
 
-import android.util.Log
-import timber.log.Timber
+import com.koma.weather.splash.SplashActivity
+import com.koma.weather.splash.SplashModule
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-class CrashReportingTree : Timber.Tree() {
-    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (priority == Log.VERBOSE || priority == Log.DEBUG) {
-            return
-        }
-
-        if (t != null) {
-            if (priority == Log.ERROR) {
-
-            } else if (priority == Log.WARN) {
-
-            }
-        }
-    }
+@Module
+abstract class ActivityBindingModule {
+    @ContributesAndroidInjector(modules = [SplashModule::class])
+    abstract fun contributeSplashActivity(): SplashActivity
 }

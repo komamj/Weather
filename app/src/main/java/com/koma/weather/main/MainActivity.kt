@@ -18,20 +18,21 @@ package com.koma.weather.main
 
 import android.os.Bundle
 import android.view.Menu
-import androidx.appcompat.app.AppCompatActivity
+import com.koma.common.base.BaseActivity
 import com.koma.weather.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.koma.weather.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override fun getLayoutId() = R.layout.activity_main
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        init()
+        init(binding)
     }
 
-    private fun init() {
-        setSupportActionBar(bottom_app_bar)
+    private fun init(binding: ActivityMainBinding) {
+        setSupportActionBar(binding.bottomAppBar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

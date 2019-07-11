@@ -18,8 +18,37 @@ package com.koma.weather.data.source.remote
 
 import androidx.lifecycle.LiveData
 import retrofit2.http.GET
+import retrofit2.http.Query
 
+/**
+ * 天气api
+ */
 interface WebService {
-    @GET()
-    fun getWeather(): LiveData<Any>
+    /**
+     * 获取实况天气
+     * @param location 位置
+     */
+    @GET("now")
+    fun getNow(@Query("location") location: String): LiveData<Any>
+
+    /**
+     * 获取3-10天预报
+     * @param location 位置
+     */
+    @GET("forecast")
+    fun getForecast(@Query("location") location: String)
+
+    /**
+     * 获取逐小时预报
+     * @param location 位置
+     */
+    @GET("hourly")
+    fun getHourly(@Query("location") location: String)
+
+    /**
+     * 获取生活指数
+     * @param location 位置
+     */
+    @GET("hourly")
+    fun getLifestyle(@Query("location") location: String)
 }

@@ -14,31 +14,12 @@
  * limitations under the License.
  */
 
-package com.koma.weather.di
+package com.koma.weather.data.source.local
 
 import android.app.Application
-import com.koma.weather.WeatherApp
-import dagger.BindsInstance
-import dagger.Component
-import dagger.android.AndroidInjectionModule
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        AppModule::class,
-        ActivityBindingModule::class
-    ]
-)
-interface AppComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        fun build(): AppComponent
-    }
-
-    fun inject(weatherApp: WeatherApp)
+class LocalDataSource @Inject constructor(application: Application) : ILocalDataSource {
 }

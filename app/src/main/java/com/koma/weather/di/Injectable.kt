@@ -16,14 +16,7 @@
 
 package com.koma.weather.di
 
-import android.app.Application
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
-
-@Module
-class ApplicationModule(private val application: Application) {
-    @Singleton
-    @Provides
-    fun provideApplication() = application
-}
+/**
+ * Marks an activity / fragment injectable.
+ */
+interface Injectable
