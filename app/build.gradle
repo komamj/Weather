@@ -9,14 +9,14 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'jacoco'
 
 android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
+    compileSdkVersion compileAndroidSdkVersion as int
+    buildToolsVersion androidBuildToolsVerison as String
     defaultConfig {
-        applicationId "com.koma.weather"
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0.00"
+        applicationId applicationId as String
+        minSdkVersion minAndroidSdkVersion as int
+        targetSdkVersion targetAndroidSdkVersion as int
+        versionCode appVersionCode as int
+        versionName appVersionName as String
 
         buildConfigField "String", "API_KEY", API_KEY
 
@@ -79,7 +79,7 @@ dependencies {
     implementation deps.room.runtime
     kapt deps.room.compiler
 
-    implementation deps.rx.kotlin
+    implementation deps.rx.java
     implementation deps.rx.android
 
     implementation deps.network.retrofit
@@ -96,8 +96,6 @@ dependencies {
     implementation deps.timber
 
     implementation deps.map
-
-    implementation deps.lottie
 
     implementation project(':commonlibrary')
 

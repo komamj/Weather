@@ -23,7 +23,6 @@ import com.koma.weather.data.source.WeatherRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -51,17 +50,16 @@ class SplashViewModel @Inject constructor(
             Observable.intervalRange(1, MAX_COUNT, 1, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                    onNext = {
+                .subscribe(
+                    {
                         _time.value = MAX_COUNT - it
                     },
-                    onError = {
+                    {
                         _needSkip.value = true
                     },
-                    onComplete = {
+                    {
                         _needSkip.value = true
-                    }
-                )
+                    })
         disposables.add(disposable)
     }
 

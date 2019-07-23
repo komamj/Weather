@@ -9,13 +9,13 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco'
 
 android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
+    compileSdkVersion compileAndroidSdkVersion as int
+    buildToolsVersion androidBuildToolsVerison as String
     defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0.00"
+        minSdkVersion minAndroidSdkVersion as int
+        targetSdkVersion targetAndroidSdkVersion as int
+        versionCode commonVersionCode as int
+        versionName commonVersionName as String
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

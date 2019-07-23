@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+apply from: 'version.gradle'
 /**
  * Shared file between builds so that they can all use the same dependencies.
  **/
+ext {
+    applicationId = 'com.koma.weather'
+}
 ext.deps = [:]
-def versions = [:]
+/*def versions = [:]
 
 versions.android_gradle_plugin = '3.4.2'
 versions.kotlin = "1.3.41"
@@ -34,7 +37,7 @@ versions.lifecycle = "2.0.0"
 versions.navigation = "2.1.0-alpha04"
 versions.room = "2.1.0"
 
-versions.view_pager = "1.0.0-alpha06"
+versions.view_pager = "1.0.0-beta02"
 versions.constraint_layout = "1.1.3"
 versions.core_ktx = "1.0.2"
 versions.support = "1.0.0"
@@ -61,91 +64,89 @@ versions.junit = "4.12"
 versions.mockito = "2.25.0"
 versions.arch_core = "2.0.1"
 versions.runner = "1.1.1"
-versions.espresso_core = "3.1.1"
+versions.espresso_core = "3.1.1"*/
 
 def deps = [:]
 
-deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$androidGradlePluginVersion"
 
 def kotlin = [:]
-kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
-kotlin.gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-kotlin.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesVersion"
-kotlin.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutinesVersion"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+kotlin.gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
 deps.kotlin = kotlin
 
 def lifecycle = [:]
-lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
-lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
-lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
-lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$lifecycleVersion"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
 deps.lifecycle = lifecycle
 
 def support = [:]
-support.app_compat = "androidx.appcompat:appcompat:$versions.support"
-support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
-support.cardview = "androidx.cardview:cardview:$versions.support"
-support.design = "com.google.android.material:material:$versions.support"
+support.app_compat = "androidx.appcompat:appcompat:$supportVersion"
+support.recyclerview = "androidx.recyclerview:recyclerview:$supportVersion"
+support.cardview = "androidx.cardview:cardview:$supportVersion"
+support.design = "com.google.android.material:material:$supportVersion"
+
 deps.support = support
 
-deps.view_pager = "androidx.viewpager2:viewpager2:$versions.view_pager"
+deps.view_pager = "androidx.viewpager2:viewpager2:$viewPagerVersion"
 
-deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
 def dagger = [:]
-dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
-dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
-dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
-dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
-dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+dagger.runtime = "com.google.dagger:dagger:$daggerVersion"
+dagger.android = "com.google.dagger:dagger-android:$daggerVersion"
+dagger.android_support = "com.google.dagger:dagger-android-support:$daggerVersion"
+dagger.compiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$daggerVersion"
 deps.dagger = dagger
 
 def glide = [:]
-glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
-glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+glide.runtime = "com.github.bumptech.glide:glide:$glideVersion"
+glide.compiler = "com.github.bumptech.glide:compiler:$glideVersion"
 deps.glide = glide
 
 def rx = [:]
-rx.kotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
-rx.android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+rx.java = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+rx.android = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 deps.rx = rx
 
 def navigation = [:]
-navigation.runtime_ktx = "androidx.navigation:navigation-runtime-ktx:$versions.navigation"
-navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
-navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
-navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+navigation.runtime_ktx = "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
 deps.navigation = navigation
 
 def room = [:]
-room.runtime = "androidx.room:room-runtime:$versions.room"
-room.compiler = "androidx.room:room-compiler:$versions.room"
-room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
-room.testing = "androidx.room:room-testing:$versions.room"
+room.runtime = "androidx.room:room-runtime:$roomVersion"
+room.compiler = "androidx.room:room-compiler:$roomVersion"
+room.rxjava2 = "androidx.room:room-rxjava2:$roomVersion"
+room.testing = "androidx.room:room-testing:$roomVersion"
 deps.room = room
 
 def network = [:]
-network.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
-network.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-network.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
-network.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
-network.logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_logging_interceptor}"
+network.retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+network.gson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+network.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+network.mock = "com.squareup.retrofit2:retrofit-mock:$retrofitVersion"
+network.logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion"
 deps.network = network
 
-deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
-deps.map = "com.amap.api:location:$versions.map"
-deps.leakcanary = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
-deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+deps.map = "com.amap.api:location:$mapVersion"
+deps.leakcanary = "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+deps.timber = "com.jakewharton.timber:timber:$timberVersion"
 
 def test = [:]
-test.junit = "junit:junit:$versions.junit"
-test.mockito = "org.mockito:mockito-core:$versions.mockito"
-test.arch_core = "androidx.arch.core:core-testing:$versions.arch_core"
+test.junit = "junit:junit:$junitVersion"
+test.mockito = "org.mockito:mockito-core:$mockitoVersion"
+test.arch_core = "androidx.arch.core:core-testing:$archCoreVersion"
 
-test.runner = "androidx.test:runner:$versions.runner"
-test.espresso_core = "androidx.test.espresso:espresso-core:$versions.espresso_core"
+test.runner = "androidx.test:runner:$runnerVersion"
+test.espresso_core = "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 deps.test = test
 
 ext.deps = deps
