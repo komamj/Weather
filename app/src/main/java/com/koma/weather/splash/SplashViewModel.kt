@@ -16,10 +16,11 @@
 
 package com.koma.weather.splash
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.koma.weather.data.source.WeatherRepository
+import androidx.lifecycle.Transformations
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,17 +29,28 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
-    val repository: WeatherRepository
-) : ViewModel() {
+    application: Application
+) : AndroidViewModel(application) {
     private val disposables = CompositeDisposable()
+
+    private val locationLiveData = LocationLiveData(application)
+
+    val location: LiveData<String>
+        get() {
+            return Transformations.map(locationLiveData) {
+                it.name
+            }
+        }
 
     private val _needSkip = MutableLiveData<Boolean>()
 
-    val needSkip: LiveData<Boolean> = _needSkip
+    val needSkip: LiveData<Boolean>
+        get() = _needSkip
 
     private val _time = MutableLiveData<Long>()
 
-    val time: LiveData<Long> = _time
+    val time: LiveData<Long>
+        get() = _time
 
     init {
         _time.value = MAX_COUNT

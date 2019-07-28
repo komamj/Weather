@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
+            android:visibility="gone"
             android:text="@{time&lt;=0 ? @string/skip : @string/count_down(time)}"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"

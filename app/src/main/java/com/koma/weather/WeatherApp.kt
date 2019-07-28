@@ -17,6 +17,7 @@
 package com.koma.weather
 
 import android.app.Activity
+import android.os.StrictMode
 import com.koma.common.base.BaseApplication
 import com.koma.weather.di.AppInjector
 import dagger.android.DispatchingAndroidInjector
@@ -34,6 +35,16 @@ class WeatherApp : BaseApplication(), HasActivityInjector {
         LeakSentry.config = LeakSentry.config.copy(watchFragmentViews = false)
 
         AppInjector.inject(this)
+    }
+
+    private fun enabledStrictMode() {
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .penaltyDeath()
+                .build()
+        )
     }
 
     override fun activityInjector() = dispatchingAndroidInjector

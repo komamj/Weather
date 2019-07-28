@@ -19,6 +19,8 @@ package com.koma.weather.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.koma.weather.WeatherViewModelFactory
+import com.koma.weather.main.MainViewModel
+import com.koma.weather.main.WeatherViewModel
 import com.koma.weather.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
@@ -30,6 +32,16 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SplashViewModel::class)
     abstract fun bindSplashViewModel(viewModel: SplashViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WeatherViewModel::class)
+    abstract fun bindWeatherViewModel(viewModel: WeatherViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelfactory(factory: WeatherViewModelFactory): ViewModelProvider.Factory

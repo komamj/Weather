@@ -34,4 +34,25 @@
         <item name="android:windowBackground">@mipmap/ic_splash</item>
     </style>
 
+    <style name="TmpStyle">
+        <item name="android:textSize">@dimen/sp_70</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="DescriptionStyle">
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="HumStyle">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="WindSpeedStyle">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
 </resources>

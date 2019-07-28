@@ -18,15 +18,18 @@ package com.koma.weather.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.koma.common.base.BaseFragment
 import com.koma.weather.R
 import com.koma.weather.databinding.FragmentSplashBinding
 import com.koma.weather.di.Injectable
 import com.koma.weather.main.MainActivity
+import com.koma.weather.util.Constants
 import javax.inject.Inject
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>(), Injectable {
@@ -34,6 +37,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(), Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: SplashViewModel
+
+    private var location: String = ""
 
     override fun getLayoutId() = R.layout.fragment_splash
 
@@ -56,24 +61,47 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        with(viewModel) {
-            startCountDown()
-            needSkip.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    showMainPage()
-                }
-            })
-        }
+        startObserve()
+    }
+
+    private fun startObserve() {
+        viewModel.needSkip.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                showMainPage()
+            }
+        })
+        viewModel.location.observe(viewLifecycleOwner, Observer {
+            viewModel.startCountDown()
+
+            binding.btnCountDown.visibility = View.VISIBLE
+
+            if (TextUtils.isEmpty(it)) {
+                Snackbar.make(binding.root, "定位失败", Snackbar.LENGTH_SHORT)
+                    .show()
+            } else {
+                location = it
+
+                Snackbar.make(binding.root, "定位成功", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        })
     }
 
     private fun showMainPage() {
         view?.postDelayed({
             val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(Constants.KEY_LOCATION, location)
             startActivity(intent)
             activity?.run {
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 finish()
             }
-        }, 500)
+        }, 50)
+    }
+
+    companion object {
+        fun newInstance(): SplashFragment {
+            return SplashFragment()
+        }
     }
 }

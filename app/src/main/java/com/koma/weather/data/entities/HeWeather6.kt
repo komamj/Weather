@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.koma.weather.di
+package com.koma.weather.data.entities
 
-import com.koma.weather.splash.SplashFragment
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.google.gson.annotations.SerializedName
 
-@Module
-abstract class FragmentBuildersModule {
-    @ContributesAndroidInjector
-    abstract fun contributeSplashFragment(): SplashFragment
-}
+data class HeWeather6<T>(
+    @SerializedName("HeWeather6")
+    val weather: List<T>
+)

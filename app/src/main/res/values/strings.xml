@@ -20,6 +20,11 @@
     <string name="skip">跳过</string>
     <string name="count_down">%d秒跳过</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="hum">相对湿度</string>
+    <string name="hum_description">%s %</string>
+    <string name="wind">风速</string>
+    <string name="wind_description">%s 公里/小时</string>
+    <string name="temperature">"%s&#176;"</string>
+    <string name="celsius">"&#176;C"</string>
+    <string name="fahrenheit">"&#176;F"</string>
 </resources>

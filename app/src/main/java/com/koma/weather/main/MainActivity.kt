@@ -18,25 +18,50 @@ package com.koma.weather.main
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.koma.common.base.BaseActivity
 import com.koma.weather.R
+import com.koma.weather.data.entities.City
 import com.koma.weather.databinding.ActivityMainBinding
+import com.koma.weather.util.Constants
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
-    override fun getLayoutId() = R.layout.activity_main
+class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInjector {
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    private val cities = mutableListOf<City>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        init(binding)
+        initViews(binding)
     }
 
-    private fun init(binding: ActivityMainBinding) {
+    private fun initViews(binding: ActivityMainBinding) {
+        binding.bottomAppBar.title = "wocao"
+        binding.bottomAppBar.subtitle = "wocao1111"
         setSupportActionBar(binding.bottomAppBar)
+
+        cities.add(City("0000", intent.getStringExtra(Constants.KEY_LOCATION)))
+
+        with(binding.viewPager) {
+            currentItem = 0
+            offscreenPageLimit = 1
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            adapter = WeatherAdapter(this@MainActivity, cities)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
+
+    override fun supportFragmentInjector() = dispatchingAndroidInjector
+
+    override fun getLayoutId() = R.layout.activity_main
 }

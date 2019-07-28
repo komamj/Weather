@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -29,12 +31,28 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(STORE_FILE_PATH)
+            storePassword STORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         debug {
             testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -57,8 +75,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation deps.kotlin.stdlib
-    /*implementation deps.kotlin.coroutines_android
-    implementation deps.kotlin.coroutines_core*/
 
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
@@ -94,6 +110,8 @@ dependencies {
     kapt deps.dagger.android_support_compiler
 
     implementation deps.timber
+
+    implementation deps.lottie
 
     implementation deps.map
 

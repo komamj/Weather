@@ -16,7 +16,17 @@
 
 package com.koma.weather.data.source.remote
 
+import com.koma.weather.data.entities.Now
+import io.reactivex.Observable
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteDataSource @Inject constructor(val webService: WebService) : IRemoteDataSource {
+@Singleton
+class RemoteDataSource @Inject constructor(private val webService: WebService) : IRemoteDataSource {
+    override fun getWeatherNow(location: String): Observable<Now> {
+        return webService.getNow(location)
+            .map {
+                it.weather[0]
+            }
+    }
 }

@@ -15,7 +15,13 @@
   -->
 
 <resources>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_70">70sp</dimen>
+
+    <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_36">36dp</dimen>
+    <dimen name="dp_280">280dp</dimen>
 </resources>

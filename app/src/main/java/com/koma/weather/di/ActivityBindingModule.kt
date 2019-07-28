@@ -16,6 +16,8 @@
 
 package com.koma.weather.di
 
+import com.koma.weather.main.MainActivity
+import com.koma.weather.main.WeatherModule
 import com.koma.weather.splash.SplashActivity
 import com.koma.weather.splash.SplashModule
 import dagger.Module
@@ -25,4 +27,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [SplashModule::class])
     abstract fun contributeSplashActivity(): SplashActivity
+
+    @ContributesAndroidInjector(modules = [WeatherModule::class])
+    abstract fun contributeMainActivity(): MainActivity
 }

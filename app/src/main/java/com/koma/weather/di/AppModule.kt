@@ -76,10 +76,11 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideWebService(): WebService {
+    fun provideWebService(gson: Gson, client: OkHttpClient): WebService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(WebService::class.java)

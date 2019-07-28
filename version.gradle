@@ -46,6 +46,8 @@ ext {
     daggerVersion = '2.22.1'
     //sqlite
     roomVersion = '2.1.0'
+    //animation
+    lottieVersion = '3.0.1'
     //map
     mapVersion = '4.6.0'
     // leakcanary
