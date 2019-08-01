@@ -22,8 +22,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.koma.common.base.BaseFragment
 import com.koma.weather.R
+import com.koma.weather.adapter.ForecastAdapter
 import com.koma.weather.data.entities.City
 import com.koma.weather.databinding.FragmentWeatherBinding
 import com.koma.weather.di.Injectable
@@ -40,6 +42,8 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), Injectable {
     private lateinit var viewModel: WeatherViewModel
 
     private lateinit var city: City
+
+    private lateinit var forecastAdapter: ForecastAdapter
 
     override fun getLayoutId() = R.layout.fragment_weather
 
@@ -71,6 +75,14 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), Injectable {
             tsWindDescription.setFactory(R.style.WindSpeedStyle)
             tsWindDescription.setAnimation(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
+        with(binding.rvForecast) {
+            layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
+            setHasFixedSize(true)
+            forecastAdapter = ForecastAdapter(context)
+            adapter = forecastAdapter
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -96,10 +108,11 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), Injectable {
 
     private fun refreshWeather() {
         viewModel.getWeatherNow(city)
+        viewModel.getWeatherForecast(city)
     }
 
     private fun startObserve() {
-        binding.weatherNow = viewModel.now
+        binding.viewModel = viewModel
 
         viewModel.now.observe(viewLifecycleOwner, Observer {
             binding.now.tsTmp.setText(getString(R.string.temperature, it.tmp))
@@ -110,6 +123,9 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), Injectable {
             )
             binding.now.animationView.setWeather(it)
             binding.now.animationView.playAnimation()
+        })
+        viewModel.forecast.observe(viewLifecycleOwner, Observer {
+            forecastAdapter.submitList(it)
         })
     }
 

@@ -16,6 +16,9 @@
 
 package com.koma.weather.data.source.remote
 
+import com.koma.weather.data.entities.Forecast
+import com.koma.weather.data.entities.Hourly
+import com.koma.weather.data.entities.Lifestyle
 import com.koma.weather.data.entities.Now
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -28,5 +31,23 @@ class RemoteDataSource @Inject constructor(private val webService: WebService) :
             .map {
                 it.weather[0]
             }
+    }
+
+    override fun getWeatherHourly(location: String): Observable<Hourly> {
+        return webService.getWeatherHourly(location)
+            .map {
+                it.weather[0]
+            }
+    }
+
+    override fun getWeatherForecast(location: String): Observable<Forecast> {
+        return webService.getWeatherForecast(location).map {
+            it.weather[0]
+        }
+    }
+
+    override fun getWeatherLifestyle(location: String): Observable<Lifestyle> {
+        return webService.getWeatherLifestyle(location)
+            .map { it.weather[0] }
     }
 }

@@ -21,14 +21,15 @@
 
         <import type="androidx.lifecycle.LiveData" />
 
-        <import type="com.koma.weather.data.entities.Now.NowBase" />
+        <import type="com.koma.weather.data.entities.Hourly.HourlyBase" />
 
         <variable
-            name="time"
-            type="LiveData&lt;NowBase>" />
+            name="hourly"
+            type="LiveData&lt;HourlyBase>" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_280"
         app:cardBackgroundColor="@color/colorPrimaryDark">

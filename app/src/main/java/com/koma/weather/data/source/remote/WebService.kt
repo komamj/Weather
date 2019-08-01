@@ -16,9 +16,7 @@
 
 package com.koma.weather.data.source.remote
 
-import com.koma.weather.data.entities.HeWeather6
-import com.koma.weather.data.entities.Lifestyle
-import com.koma.weather.data.entities.Now
+import com.koma.weather.data.entities.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -39,19 +37,19 @@ interface WebService {
      * @param location 位置
      */
     @GET("forecast")
-    fun getForecast(@Query("location") location: String)
+    fun getWeatherForecast(@Query("location") location: String): Observable<HeWeather6<Forecast>>
 
     /**
      * 获取逐小时预报
      * @param location 位置
      */
     @GET("hourly")
-    fun getHourly(@Query("location") location: String)
+    fun getWeatherHourly(@Query("location") location: String): Observable<HeWeather6<Hourly>>
 
     /**
      * 获取生活指数
      * @param location 位置
      */
     @GET("lifestyle")
-    fun getLifestyle(@Query("location") location: String): Observable<HeWeather6<Lifestyle>>
+    fun getWeatherLifestyle(@Query("location") location: String): Observable<HeWeather6<Lifestyle>>
 }

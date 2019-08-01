@@ -16,6 +16,9 @@
 
 package com.koma.weather.data.source
 
+import com.koma.weather.data.entities.Forecast
+import com.koma.weather.data.entities.Hourly
+import com.koma.weather.data.entities.Lifestyle
 import com.koma.weather.data.entities.Now
 import com.koma.weather.data.source.remote.IRemoteDataSource
 import com.koma.weather.data.source.remote.RemoteDataSource
@@ -28,5 +31,17 @@ class WeatherRepository @Inject constructor(private val remoteDataSource: Remote
     IRemoteDataSource {
     override fun getWeatherNow(location: String): Observable<Now> {
         return remoteDataSource.getWeatherNow(location)
+    }
+
+    override fun getWeatherForecast(location: String): Observable<Forecast> {
+        return remoteDataSource.getWeatherForecast(location)
+    }
+
+    override fun getWeatherHourly(location: String): Observable<Hourly> {
+        return remoteDataSource.getWeatherHourly(location)
+    }
+
+    override fun getWeatherLifestyle(location: String): Observable<Lifestyle> {
+        return remoteDataSource.getWeatherLifestyle(location)
     }
 }

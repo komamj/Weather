@@ -16,8 +16,10 @@
 
 package com.koma.weather.data.entities
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Lifestyle(
     @SerializedName("lifestyle")
     val lifestyle: String

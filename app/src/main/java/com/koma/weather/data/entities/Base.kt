@@ -16,9 +16,11 @@
 
 package com.koma.weather.data.entities
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.koma.weather.util.Constants
 
+@Keep
 open class Base {
     @SerializedName("basic")
     var basic: Basic? = null

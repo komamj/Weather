@@ -18,19 +18,18 @@
 
     <data>
 
-        <import type="androidx.lifecycle.LiveData" />
-
-        <import type="com.koma.weather.data.entities.Now.NowBase" />
+        <import type="com.koma.weather.main.WeatherViewModel" />
 
         <variable
-            name="weatherNow"
-            type="LiveData&lt;NowBase>" />
+            name="viewModel"
+            type="WeatherViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:isRefreshing="@{viewModel.isLoading}">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"
@@ -45,11 +44,20 @@
                 <include
                     android:id="@+id/now"
                     layout="@layout/item_now"
-                    app:now="@{weatherNow}" />
+                    app:now="@{viewModel.now}" />
 
-                <include
-                    android:id="@+id/forecast"
-                    layout="@layout/item_forecast" />
+                <TextView
+                    android:id="@+id/tv_forecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:text="@string/forecast" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_forecast"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_200" />
 
                 <include
                     android:id="@+id/hourly"
@@ -58,9 +66,11 @@
                 <include
                     android:id="@+id/lifestyle"
                     layout="@layout/item_lifestyle" />
+
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

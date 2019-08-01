@@ -16,9 +16,18 @@
 
 package com.koma.weather.data.source.remote
 
+import com.koma.weather.data.entities.Forecast
+import com.koma.weather.data.entities.Hourly
+import com.koma.weather.data.entities.Lifestyle
 import com.koma.weather.data.entities.Now
 import io.reactivex.Observable
 
 interface IRemoteDataSource {
     fun getWeatherNow(location: String): Observable<Now>
+
+    fun getWeatherHourly(location: String): Observable<Hourly>
+
+    fun getWeatherForecast(location: String): Observable<Forecast>
+
+    fun getWeatherLifestyle(location: String): Observable<Lifestyle>
 }

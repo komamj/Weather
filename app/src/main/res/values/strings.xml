@@ -22,6 +22,7 @@
     <string name="title_home">Home</string>
     <string name="hum">相对湿度</string>
     <string name="hum_description">%s %</string>
+    <string name="forecast">3–10天天气预报</string>
     <string name="wind">风速</string>
     <string name="wind_description">%s 公里/小时</string>
     <string name="temperature">"%s&#176;"</string>

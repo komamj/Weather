@@ -16,5 +16,24 @@
 
 package com.koma.weather.data.entities
 
-class Hourly {
+import com.google.gson.annotations.SerializedName
+
+data class Hourly(
+    @SerializedName("hourly")
+    val hourly: List<HourlyBase>
+) {
+    data class HourlyBase(
+        //预报时间，格式yyyy-MM-dd hh:mm
+        @SerializedName("time")
+        val time: String,
+        //温度
+        @SerializedName("tmp")
+        val tmp: String,
+        //天气状况代码
+        @SerializedName("cond_code")
+        val condCode: Int,
+        //天气状况描述
+        @SerializedName("cond_txt")
+        val condTxt: String
+    )
 }

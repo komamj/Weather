@@ -50,6 +50,8 @@ ext {
     lottieVersion = '3.0.1'
     //map
     mapVersion = '4.6.0'
+    //time
+    jodaVersion = '2.10.3'
     // leakcanary
     leakcanaryVersion = '2.0-alpha-2'
 

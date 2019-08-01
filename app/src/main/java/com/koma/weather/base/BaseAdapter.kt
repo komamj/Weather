@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-package com.koma.weather.data.entities
+package com.koma.weather.base
 
-import androidx.annotation.Keep
-import com.google.gson.annotations.SerializedName
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 
-@Keep
-data class HeWeather6<T>(
-    @SerializedName("HeWeather6")
-    val weather: List<T>
-)
+abstract class BaseAdapter<T, V : RecyclerView.ViewHolder, X : DiffUtil.ItemCallback<T>>(
+    diffCallback: X
+) :
+    ListAdapter<T, V>(diffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): V {
+        return createBinding(parent)
+    }
+
+    protected abstract fun createBinding(parent: ViewGroup): V
+}

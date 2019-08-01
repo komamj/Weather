@@ -15,28 +15,102 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="androidx.lifecycle.LiveData" />
-
-        <import type="com.koma.weather.data.entities.Now.NowBase" />
+        <import type="com.koma.weather.data.entities.Forecast.ForecastBase" />
 
         <variable
-            name="time"
-            type="LiveData&lt;NowBase>" />
+            name="forecast"
+            type="ForecastBase" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_280"
-        app:cardBackgroundColor="@color/colorPrimary">
+        android:id="@+id/card_forecast"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/dp_8"
+        app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8">
 
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:week="@{forecast.date}"
+                tools:text="星期五" />
+
+            <ImageView
+                android:id="@+id/iv_weather"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_64"
+                android:layout_marginTop="@dimen/dp_8"
+                android:src="@mipmap/ic_few_clouds"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_date"
+                tools:src="@mipmap/ic_few_clouds" />
+
+            <TextView
+                android:id="@+id/tv_cond_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@{forecast.condTxtD}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_weather"
+                tools:text="晴" />
+
+            <TextView
+                android:id="@+id/tv_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:drawableStart="@drawable/ic_arrow_downward_black_24dp"
+                android:drawablePadding="@dimen/dp_2"
+                android:gravity="center"
+                android:text="@{forecast.tmpMin}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_temp_max"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cond_txt"
+                tools:text="30&#176;" />
+
+            <TextView
+                android:id="@+id/tv_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_arrow_upward_black_24dp"
+                android:drawablePadding="@dimen/dp_2"
+                android:gravity="center"
+                android:text="@{forecast.tmpMax}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_temp_min"
+                app:layout_constraintBottom_toBottomOf="@id/tv_temp_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_temp_min"
+                app:layout_constraintTop_toTopOf="@id/tv_temp_min"
+                tools:text="40&#176;" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

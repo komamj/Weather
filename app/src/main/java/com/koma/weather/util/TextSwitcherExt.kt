@@ -16,15 +16,12 @@
 
 package com.koma.weather.util
 
-import android.graphics.Typeface
 import android.os.Build
 import android.view.Gravity
 import android.widget.TextSwitcher
 import android.widget.TextView
 import androidx.annotation.AnimRes
 import androidx.annotation.StyleRes
-
-private const val FONTS_PATH = "fonts/Vazir.ttf"
 
 fun TextSwitcher.setFactory(@StyleRes styleId: Int) {
     this.setFactory {
@@ -36,7 +33,6 @@ fun TextSwitcher.setFactory(@StyleRes styleId: Int) {
                 } else {
                     setTextAppearance(styleId)
                 }
-                this.typeface = Typeface.createFromAsset(context.assets, FONTS_PATH)
             }
         textView
     }

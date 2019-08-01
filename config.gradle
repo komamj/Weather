@@ -94,6 +94,7 @@ deps.network = network
 
 deps.lottie = "com.airbnb.android:lottie:$lottieVersion"
 deps.map = "com.amap.api:location:$mapVersion"
+deps.joda = "joda-time:joda-time:$jodaVersion"
 deps.leakcanary = "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
 deps.timber = "com.jakewharton.timber:timber:$timberVersion"
 

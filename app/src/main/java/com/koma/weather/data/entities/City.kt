@@ -17,10 +17,12 @@
 package com.koma.weather.data.entities
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 @Entity(tableName = "city")
 data class City(

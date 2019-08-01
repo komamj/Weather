@@ -16,5 +16,36 @@
 
 package com.koma.weather.data.entities
 
-class Forecast {
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+
+@Keep
+data class Forecast(
+    @SerializedName("daily_forecast")
+    val dailyForecast: List<ForecastBase>
+) {
+    @Keep
+    data class ForecastBase(
+        //预报日期
+        @SerializedName("date")
+        val date: String,
+        //最高温度
+        @SerializedName("tmp_max")
+        val tmpMax: String,
+        //最低温度
+        @SerializedName("tmp_min")
+        val tmpMin: String,
+        //白天天气状况代码
+        @SerializedName("cond_code_d")
+        val condCodeD: Int,
+        //夜间天气状况代码
+        @SerializedName("cond_code_n")
+        val condCodeN: Int,
+        //白天天气状况描述
+        @SerializedName("cond_txt_d")
+        val condTxtD: String,
+        //晚间天气状况描述
+        @SerializedName("cond_txt_n")
+        val condTxtN: String
+    )
 }

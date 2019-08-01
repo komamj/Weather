@@ -35,8 +35,8 @@
     </style>
 
     <style name="TmpStyle">
-        <item name="android:textSize">@dimen/sp_70</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/sp_60</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="DescriptionStyle">
