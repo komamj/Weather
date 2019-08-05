@@ -59,13 +59,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_200" />
 
-                <include
+                <!--<include
                     android:id="@+id/hourly"
                     layout="@layout/item_hourly" />
 
                 <include
                     android:id="@+id/lifestyle"
-                    layout="@layout/item_lifestyle" />
+                    layout="@layout/item_lifestyle" />-->
 
             </LinearLayout>
 

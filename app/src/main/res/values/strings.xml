@@ -16,13 +16,20 @@
 
 <resources>
     <string name="app_name">Weather</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="author">Koma</string>
+    <string name="nav_add_city">添加城市</string>
+    <string name="nav_other">其他</string>
+    <string name="nav_share">分享</string>
+    <string name="nav_setting">设置</string>
     <!--splash-->
     <string name="skip">跳过</string>
     <string name="count_down">%d秒跳过</string>
     <string name="title_home">Home</string>
     <string name="hum">相对湿度</string>
     <string name="hum_description">%s %</string>
-    <string name="forecast">3–10天天气预报</string>
+    <string name="forecast">未来七天天气预报</string>
     <string name="wind">风速</string>
     <string name="wind_description">%s 公里/小时</string>
     <string name="temperature">"%s&#176;"</string>

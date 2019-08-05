@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_280"
         app:cardBackgroundColor="@color/blue"
-        app:cardCornerRadius="@dimen/dp_16"
+        app:cardCornerRadius="@dimen/dp_8"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout

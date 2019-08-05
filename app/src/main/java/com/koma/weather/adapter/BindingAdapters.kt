@@ -19,10 +19,12 @@ package com.koma.weather.adapter
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.koma.weather.R
 import org.joda.time.format.DateTimeFormat
 
 @BindingAdapter("isRefreshing")
@@ -50,11 +52,55 @@ fun bindIsGone(view: View, isGone: Boolean) {
 }
 
 @BindingAdapter("imageFromUrl")
-fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
-    if (!imageUrl.isNullOrEmpty()) {
-        Glide.with(view.context)
-            .load(imageUrl)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(view)
+fun bindImageFromUrl(view: ImageView, condCode: Int) {
+    @DrawableRes
+    val drawableRes = when (condCode) {
+        //晴
+        100 -> {
+            R.mipmap.ic_clear_day
+        }
+        //多云
+        101, 102 -> {
+            R.mipmap.ic_cloudy_weather
+        }
+        //晴间多云
+        103 -> {
+            R.mipmap.ic_mostly_cloudy
+        }
+        //阴天
+        104 -> {
+            R.mipmap.ic_few_clouds
+        }
+        //阴天
+        in 200..213 -> {
+            R.mipmap.ic_broken_clouds
+        }
+        //阵雨
+        in 300..304 -> {
+            R.mipmap.ic_shower_rain
+        }
+        //雨
+        in 305..309, in 313..315, 399 -> {
+            R.mipmap.ic_rainy_weather
+        }
+        //暴雨
+        in 310..312, in 316..318 -> {
+            R.mipmap.ic_storm_weather
+        }
+        //雪
+        in 400..499 -> {
+            R.mipmap.ic_snow_weather
+        }
+        //
+        in 500..515 -> {
+            R.mipmap.ic_broken_clouds
+        }
+        else -> {
+            R.mipmap.ic_unknown
+        }
     }
+    Glide.with(view.context)
+        .load(drawableRes)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(view)
 }

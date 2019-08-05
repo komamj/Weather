@@ -14,8 +14,7 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -31,8 +30,7 @@
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_280"
-        app:cardBackgroundColor="@color/colorAccent">
+        android:layout_height="@dimen/dp_280">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

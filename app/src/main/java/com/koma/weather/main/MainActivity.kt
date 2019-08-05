@@ -17,9 +17,12 @@
 package com.koma.weather.main
 
 import android.os.Bundle
-import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.navigation.NavigationView
 import com.koma.common.base.BaseActivity
 import com.koma.weather.R
 import com.koma.weather.data.entities.City
@@ -29,7 +32,8 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInjector {
+class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInjector,
+    NavigationView.OnNavigationItemSelectedListener {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
@@ -42,13 +46,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
     }
 
     private fun initViews(binding: ActivityMainBinding) {
-        binding.bottomAppBar.title = "wocao"
-        binding.bottomAppBar.subtitle = "wocao1111"
-        setSupportActionBar(binding.bottomAppBar)
+        setSupportActionBar(binding.appBarMain.toolbar)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.appBarMain.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        binding.navView.setNavigationItemSelectedListener(this)
 
         cities.add(City("0000", intent.getStringExtra(Constants.KEY_LOCATION)))
 
-        with(binding.viewPager) {
+        with(binding.appBarMain.contentMain.viewPager) {
             currentItem = 0
             offscreenPageLimit = 1
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -56,9 +68,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_add_city -> {
+                // Handle the camera action
+            }
+            R.id.nav_setting -> {
+
+            }
+            R.id.nav_share -> {
+
+            }
+        }
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
