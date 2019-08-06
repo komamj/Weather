@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.koma.weather.splash
+package com.koma.weather.main
 
-import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.koma.weather.data.entities.City
+import com.koma.weather.data.entities.Now
+import com.koma.weather.data.source.WeatherRepository
 import com.koma.weather.util.RxJavaRule
-import com.koma.weather.util.mock
+import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,7 +31,7 @@ import org.junit.runners.JUnit4
 import org.mockito.Mockito.*
 
 @RunWith(JUnit4::class)
-class SplashViewModelTest {
+class WeatherViewModelTest {
     @Rule
     @JvmField
     val instantExecutor = InstantTaskExecutorRule()
@@ -38,39 +40,40 @@ class SplashViewModelTest {
     @JvmField
     val rxJavaRule = RxJavaRule()
 
-    private val application: Application = mock(Application::class.java)
+    private val repository = mock(WeatherRepository::class.java)
 
-    private lateinit var viewModel: SplashViewModel
+    private val viewModel: WeatherViewModel = WeatherViewModel(repository)
+
+    private lateinit var city: City
 
     @Before
-    fun setup() {
-        viewModel = SplashViewModel(application)
+    fun init() {
+        city = City("0000", "深圳")
     }
 
     @Test
-    fun startCountDown() {
-        val observer = mock<Observer<Long>>()
-        viewModel.time.observeForever(observer)
-        viewModel.startCountDown()
-        verify(observer, times(1)).onChanged(5)
+    fun getNow() {
+        `when`(repository.getWeatherNow(city.name))
+            .thenReturn(Observable.error {
+                Throwable("获取天气数据出错")
+            })
+        viewModel.getWeatherNow(city)
+        verify(repository).getWeatherNow(city.name)
     }
 
     @Test
-    fun getLocation() {
-
+    fun getForecast() {
     }
 
     @Test
-    fun getNeedSkip() {
-        val observer = mock<Observer<Boolean>>()
-        viewModel.needSkip.observeForever(observer)
-        verify(observer).onChanged(false)
+    fun getHourly() {
     }
 
     @Test
-    fun getTime() {
-        val observer = mock<Observer<Long>>()
-        viewModel.time.observeForever(observer)
-        verify(observer).onChanged(5L)
+    fun getWeatherNow() {
+    }
+
+    @Test
+    fun getWeatherForecast() {
     }
 }

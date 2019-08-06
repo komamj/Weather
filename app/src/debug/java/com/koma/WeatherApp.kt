@@ -22,6 +22,7 @@ import com.koma.common.base.BaseApplication
 import com.koma.weather.di.AppInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import leakcanary.LeakSentry
 import javax.inject.Inject
 
 class WeatherApp : BaseApplication(), HasActivityInjector {
@@ -30,6 +31,8 @@ class WeatherApp : BaseApplication(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+
+        LeakSentry.config = LeakSentry.config.copy(watchFragmentViews = false)
 
         AppInjector.inject(this)
     }

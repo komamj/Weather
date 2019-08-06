@@ -42,20 +42,19 @@ class SplashViewModel @Inject constructor(
             }
         }
 
-    private val _needSkip = MutableLiveData<Boolean>()
+    private val _needSkip = MutableLiveData<Boolean>().apply {
+        value = false
+    }
 
     val needSkip: LiveData<Boolean>
         get() = _needSkip
 
-    private val _time = MutableLiveData<Long>()
+    private val _time = MutableLiveData<Long>().apply {
+        value = MAX_COUNT
+    }
 
     val time: LiveData<Long>
         get() = _time
-
-    init {
-        _time.value = MAX_COUNT
-        _needSkip.value = false
-    }
 
     fun startCountDown() {
         val disposable =

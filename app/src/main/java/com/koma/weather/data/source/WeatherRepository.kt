@@ -22,10 +22,12 @@ import com.koma.weather.data.entities.Lifestyle
 import com.koma.weather.data.entities.Now
 import com.koma.weather.data.source.remote.IRemoteDataSource
 import com.koma.weather.data.source.remote.RemoteDataSource
+import com.koma.weather.testing.OpenForTesting
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@OpenForTesting
 @Singleton
 class WeatherRepository @Inject constructor(private val remoteDataSource: RemoteDataSource) :
     IRemoteDataSource {

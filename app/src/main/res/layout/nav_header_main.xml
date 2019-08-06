@@ -32,6 +32,7 @@
         android:layout_width="@dimen/dp_64"
         android:layout_height="@dimen/dp_64"
         android:layout_marginTop="@dimen/dp_8"
+        android:scaleType="centerCrop"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView

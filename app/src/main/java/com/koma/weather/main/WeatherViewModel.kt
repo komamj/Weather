@@ -29,7 +29,9 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : BaseViewModel() {
-    private val _isLoading = MutableLiveData<Boolean>()
+    private val _isLoading = MutableLiveData<Boolean>().apply {
+        value = true
+    }
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
@@ -49,8 +51,8 @@ class WeatherViewModel @Inject constructor(
     val hourly: LiveData<List<Hourly.HourlyBase>>
         get() = _hourly
 
-    init {
-        _isLoading.value = true
+    fun setLoading(active: Boolean) {
+        _isLoading.value = active
     }
 
     fun getWeatherNow(city: City) {

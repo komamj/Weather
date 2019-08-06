@@ -1,0 +1,45 @@
+language: android
+dist: trusty
+jdk: oraclejdk8
+sudo: required
+env:
+global:
+  - ANDROID_API=29
+  - EMULATOR_API=22
+  - ANDROID_BUILD_TOOLS=29.0.1
+  - ADB_INSTALL_TIMEOUT=5
+android:
+components:
+  - tools
+  - platform-tools
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
+  - android-$EMULATOR_API
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - extra-android-support
+  - extra-google-google_play_services
+  - sys-img-armeabi-v7a-android-$ANDROID_API
+  - sys-img-armeabi-v7a-android-$EMULATOR_API
+licenses:
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+before_install:
+  - yes | sdkmanager "platforms;android-29"
+  - cd $TRAVIS_BUILD_DIR
+  - wget -c https://raw.githubusercontent.com/Pgyer/TravisFile/master/pgyer_upload.sh
+    -O pgyer_upload.sh
+  - chmod +x pgyer_upload.sh
+script:
+  - ./gradlew assembleRelease
+after_script:
+  - set -e
+  - $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/app-release.apk" 1ffafb3680dc6131e41428163082c76a

@@ -16,27 +16,12 @@
 
 package com.koma.weather.util
 
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.schedulers.Schedulers
+import org.mockito.ArgumentCaptor
+import org.mockito.Mockito
 
-object RxJavaTestUtils {
-    fun startHookSchedulers() {
-        RxJavaPlugins.setIoSchedulerHandler {
-            Schedulers.trampoline()
-        }
+/**
+ * a kotlin friendly mock that handles generics
+ */
+inline fun <reified T> mock(): T = Mockito.mock(T::class.java)
 
-        RxAndroidPlugins.setMainThreadSchedulerHandler {
-            Schedulers.trampoline()
-        }
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler {
-            Schedulers.trampoline()
-        }
-    }
-
-    fun cleanHookSchedulers() {
-        RxJavaPlugins.reset()
-
-        RxAndroidPlugins.reset()
-    }
-}
+inline fun <reified T> argumentCaptor(): ArgumentCaptor<T> = ArgumentCaptor.forClass(T::class.java)

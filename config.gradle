@@ -30,6 +30,7 @@ def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
 kotlin.gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
 
 deps.kotlin = kotlin
 
@@ -100,7 +101,9 @@ deps.timber = "com.jakewharton.timber:timber:$timberVersion"
 
 def test = [:]
 test.junit = "junit:junit:$junitVersion"
-test.mockito = "org.mockito:mockito-core:$mockitoVersion"
+test.mockito_core = "org.mockito:mockito-core:$mockitoCoreVersion"
+test.mockito_all = "org.mockito:mockito-all:$mockitoAllVersion"
+test.mockito_android = "org.mockito:mockito-android:$mockitoAndroidVersion"
 test.arch_core = "androidx.arch.core:core-testing:$archCoreVersion"
 
 test.runner = "androidx.test:runner:$runnerVersion"

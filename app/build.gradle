@@ -6,9 +6,16 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlin-allopen'
+
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply plugin: 'jacoco'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.koma.weather.testing.OpenClass'
+}
 
 android {
     compileSdkVersion compileAndroidSdkVersion as int
@@ -122,13 +129,14 @@ dependencies {
     debugImplementation deps.leakcanary
 
     testImplementation deps.test.junit
-    testImplementation deps.test.mockito
+    testImplementation deps.test.mockito_core
     testImplementation deps.test.arch_core
 
     androidTestImplementation deps.test.runner
     androidTestImplementation deps.test.espresso_core
     androidTestImplementation deps.test.arch_core
-    androidTestImplementation deps.test.mockito
+    androidTestImplementation deps.test.mockito_core
+    androidTestImplementation deps.test.mockito_android
 }
 
 task fullCoverageReport(type: JacocoReport) {

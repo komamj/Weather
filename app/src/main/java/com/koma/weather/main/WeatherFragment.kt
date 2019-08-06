@@ -107,6 +107,7 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), Injectable {
     }
 
     private fun refreshWeather() {
+        viewModel.setLoading(true)
         viewModel.getWeatherNow(city)
         viewModel.getWeatherForecast(city)
     }
