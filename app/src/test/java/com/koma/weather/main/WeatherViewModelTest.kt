@@ -22,6 +22,7 @@ import com.koma.weather.data.entities.City
 import com.koma.weather.data.entities.Now
 import com.koma.weather.data.source.WeatherRepository
 import com.koma.weather.util.RxJavaRule
+import com.koma.weather.util.mock
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
@@ -52,13 +53,28 @@ class WeatherViewModelTest {
     }
 
     @Test
-    fun getNow() {
+    fun getNowFailed() {
         `when`(repository.getWeatherNow(city.name))
             .thenReturn(Observable.error {
                 Throwable("获取天气数据出错")
             })
         viewModel.getWeatherNow(city)
         verify(repository).getWeatherNow(city.name)
+        val observer = mock<Observer<Now.NowBase>>()
+        viewModel.now.observeForever(observer)
+        verifyNoMoreInteractions(observer)
+    }
+
+    @Test
+    fun getNowSuccessful() {
+        val now = Now(Now.NowBase("", "33", 100, "晴", "", "", "", "", "", "", "", "", ""))
+        `when`(repository.getWeatherNow(city.name))
+            .thenReturn(Observable.just(now))
+        viewModel.getWeatherNow(city)
+        verify(repository).getWeatherNow(city.name)
+        val observer = mock<Observer<Now.NowBase>>()
+        viewModel.now.observeForever(observer)
+        verify(observer).onChanged(now.now)
     }
 
     @Test

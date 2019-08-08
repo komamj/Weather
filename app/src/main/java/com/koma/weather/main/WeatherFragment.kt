@@ -96,7 +96,7 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), Injectable {
             .get(WeatherViewModel::class.java)
 
         arguments?.run {
-            city = getParcelable(KEY_CITY)
+            city = getParcelable(KEY_CITY)!!
 
             Timber.d("current city is $city")
         }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.koma.weather.testing
+package com.koma.weather.setting
 
-@Target(AnnotationTarget.CLASS)
-annotation class OpenForTesting
+class SettingFragment {
+}

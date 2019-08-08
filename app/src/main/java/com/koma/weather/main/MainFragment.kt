@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package com.koma.weather.testing
+package com.koma.weather.main
 
-@Target(AnnotationTarget.CLASS)
-annotation class OpenForTesting
+import com.koma.common.base.BaseFragment
+import com.koma.weather.R
+import com.koma.weather.databinding.ContentMainBinding
+
+class MainFragment : BaseFragment<ContentMainBinding>() {
+    override fun getLayoutId() = R.layout.content_main
+}

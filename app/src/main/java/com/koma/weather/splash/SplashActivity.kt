@@ -107,12 +107,12 @@ class SplashActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     private fun onPermissionGranted() {
-        val splashFragment = supportFragmentManager.findFragmentById(R.id.content_main)
+        /*val splashFragment = supportFragmentManager.findFragmentById(R.id.content_main)
                 as SplashFragment? ?: SplashFragment.newInstance().also {
             supportFragmentManager.commit {
                 replace(R.id.content_main, it)
             }
-        }
+        }*/
     }
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector

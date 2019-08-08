@@ -36,6 +36,14 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </com.google.android.material.appbar.AppBarLayout>
 
+        <fragment
+            android:id="@+id/nav_main"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_weather" />
+
         <include
             android:id="@+id/content_main"
             layout="@layout/content_main" />

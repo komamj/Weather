@@ -43,8 +43,8 @@ deps.lifecycle = lifecycle
 
 def support = [:]
 support.app_compat = "androidx.appcompat:appcompat:$supportVersion"
-support.recyclerview = "androidx.recyclerview:recyclerview:$supportVersion"
-support.cardview = "androidx.cardview:cardview:$supportVersion"
+support.recycler_view = "androidx.recyclerview:recyclerview:$supportVersion"
+support.card_view = "androidx.cardview:cardview:$supportVersion"
 support.design = "com.google.android.material:material:$supportVersion"
 
 deps.support = support
@@ -72,7 +72,6 @@ rx.android = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 deps.rx = rx
 
 def navigation = [:]
-navigation.runtime_ktx = "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
 navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
 navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"

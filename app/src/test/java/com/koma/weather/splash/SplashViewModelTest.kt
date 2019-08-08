@@ -56,21 +56,26 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun getLocation() {
-
-    }
-
-    @Test
     fun getNeedSkip() {
-        val observer = mock<Observer<Boolean>>()
-        viewModel.needSkip.observeForever(observer)
-        verify(observer).onChanged(false)
+        val observerNeedSkip = mock<Observer<Boolean>>()
+        viewModel.needSkip.observeForever(observerNeedSkip)
+        verify(observerNeedSkip).onChanged(false)
+
+        val observerCountDown = mock<Observer<Long>>()
+        viewModel.time.observeForever(observerCountDown)
+        viewModel.startCountDown()
+        verify(observerNeedSkip).onChanged(true)
     }
 
     @Test
     fun getTime() {
         val observer = mock<Observer<Long>>()
         viewModel.time.observeForever(observer)
-        verify(observer).onChanged(5L)
+        viewModel.startCountDown()
+        verify(observer).onChanged(5)
+        verify(observer).onChanged(4)
+        verify(observer).onChanged(3)
+        verify(observer).onChanged(2)
+        verify(observer).onChanged(1)
     }
 }

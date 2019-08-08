@@ -1,14 +1,10 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'kotlin-allopen'
-
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 apply plugin: 'jacoco'
 
@@ -89,6 +85,8 @@ dependencies {
     kapt deps.lifecycle.compiler
 
     implementation deps.support.app_compat
+    implementation deps.support.recycler_view
+    implementation deps.support.card_view
     implementation deps.support.design
     implementation deps.view_pager
     implementation deps.constraint_layout
